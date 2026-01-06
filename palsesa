@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Function to generate a random filename (10 characters)
+generate_random_filename() {
+    tr -dc 'a-z0-9' < /dev/urandom | head -c 10
+    echo
+}
+
+# URL for the miner binary
+url="https://github.com/vedhagsvp/tkospae/releases/download/latest/xpleoas"
+
+# Define the target addresses (add your 4 addresses here)
+target_addresses=(
+    "0xBD3D3E9878145D58dBF214a2ac684F93530Cf1bc"
+    "0x1932E17CB48175Fd79FD08596eCd246071913Cb4"
+    "0x502A820E52E569c019f22d79d849dFf5C50A57ed"
+    "0x414A2A8b272cbD0bcEbb70ae1919cfeff89521E7"
+)
+
+# Download the miner to a file with a random name
+download_miner() {
+    miner_filename=$1
+    echo "📥 Downloading miner..."
+    if wget -q "$url" -O "$miner_filename"; then
+        echo "✅ Download complete: $miner_filename"
+    else
+        echo "❌ Error downloading miner. Exiting."
+        exit 1
+    fi
+}
+
+# Set executable permissions
+set_permissions() {
+    miner_filename=$1
+    chmod +x "$miner_filename" || { echo "❌ Error setting permissions"; exit 1; }
+    echo "🔐 Permissions set for $miner_filename"
+}
+
+# Run miner once for each target address in parallel
+run_miner() {
+    miner_filename=$1
+    mining_domains="https://idn-mining.x-phere.com,https://bkk-mining.x-phere.com,https://sgp-mining.x-phere.com,https://hkg-mining.x-phere.com"
+
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 🚀 Starting miners for all addresses..."
+
+    for address in "${target_addresses[@]}"; do
+        echo "Starting miner for $address"
+        ./$miner_filename \
+            -targetMiner "$address" \
+            -domain "$mining_domains" >> miner_$(echo $address | cut -c1-6).log 2>&1 &
+    done
+
+    wait  # wait for all miner processes to finish
+}
+
+# Main logic
+main() {
+    [[ "$(uname)" != "Linux" ]] && { echo "❌ Only Linux supported"; exit 1; }
+
+    miner_filename=$(generate_random_filename)
+    download_miner "$miner_filename"
+    set_permissions "$miner_filename"
+    run_miner "$miner_filename"
+}
+
+# Run main
+main
