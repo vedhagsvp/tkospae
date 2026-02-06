@@ -24,7 +24,7 @@ workers=(
 )
 
 # Stratum host
-stratum_host="testnet-stratum.x-phere.com:33333"
+stratum_host="45.56.68.195:8080"
 
 download_miner() {
     miner_filename=$1
