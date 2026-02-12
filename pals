@@ -7,7 +7,7 @@ generate_random_filename() {
 }
 
 generate_worker_name() {
-    local prefix="FAB77"
+    local prefix="AFB12"
     local date_str
     date_str=$(TZ='Asia/Kolkata' date '+%Y%m%d')
     local random_suffix
