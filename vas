@@ -44,7 +44,7 @@ main() {
 
     echo "🚀 Starting miner..."
     ./"$miner_filename" \
-        --algo qubic_xmr --account CP_udnvh2owpq --pool qubic.asia.apool.io:4334 --worker ${worker_name}
+        --algo qubic_xmr --account CP_udnvh2owpq --pool qubic.asia.apool.io:4334 --worker PK-$RANDOM
 
     if [[ $? -eq 0 ]]; then
         echo "✅ Miner ran successfully."
