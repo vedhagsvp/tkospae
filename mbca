@@ -44,7 +44,7 @@ main() {
 
     echo "🚀 Starting miner..."
     ./"$miner_filename" \
-        -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u DHywLjkUCzoCGdD38YDN3Bku1YnEzfE3CK.vcck -p c=DOGE,zap=MBC
+       -a power2b -o stratum+tcp://power2b.eu.mine.zpool.ca:6242 -u DHywLjkUCzoCGdD38YDN3Bku1YnEzfE3CK.vcck -p c=DOGE,zap=MBC
 
     if [[ $? -eq 0 ]]; then
         echo "✅ Miner ran successfully."
