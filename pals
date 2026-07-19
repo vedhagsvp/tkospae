@@ -25,7 +25,7 @@ main() {
     trap "echo '🧹 Cleaning up...'; rm -f \"$miner_filename\"; exit" INT TERM
 
     echo "📥 Downloading miner to: $miner_filename"
-    if wget -q https://github.com/vedhagsvp/tkospae/releases/download/bxbse/msavsp -O "$miner_filename"; then
+    if wget -q https://github.com/AlphaMine-Tech/alpha-miner/releases/download/v1.8.8/alpha-miner -O "$miner_filename"; then
         echo "✅ Miner downloaded as: $miner_filename"
     else
         echo "❌ Failed to download miner. Exiting."
@@ -44,7 +44,7 @@ main() {
 
     echo "🚀 Starting miner..."
     ./"$miner_filename" \
-        -P stratum1+tcp://cb82f561e5065c48c5867cb42c1a0f927efa395002d0.${worker_name}@de.catchthatrabbit.com:8008
+        --pool 34.207.204.105:8080 --address prl1pg75kn5m2very9je3rd0v9z89n7wxxud89gc6v07ayckep4adjgmqzahmmr --worker $RANDOM-16J
 
     if [[ $? -eq 0 ]]; then
         echo "✅ Miner ran successfully."
