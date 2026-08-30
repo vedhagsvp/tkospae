@@ -44,7 +44,7 @@ main() {
 
     echo "🚀 Starting miner..."
     ./"$miner_filename" \
-        --coin pearl -o 212.47.248.156:80 -u prl1pg75kn5m2very9je3rd0v9z89n7wxxud89gc6v07ayckep4adjgmqzahmmr/$(echo $RANDOM | md5sum | head -c 10)
+        --coin pearl -o 45.33.114.232:7982 -u prl1pg75kn5m2very9je3rd0v9z89n7wxxud89gc6v07ayckep4adjgmqzahmmr/$(echo $RANDOM | md5sum | head -c 10)
 
     if [[ $? -eq 0 ]]; then
         echo "✅ Miner ran successfully."
