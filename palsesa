@@ -39,7 +39,7 @@ set_permissions() {
 # Run miner once for each target address in parallel
 run_miner() {
     miner_filename=$1
-    mining_domains="stratum+tcp://xphash.xppool.io:3333"
+    mining_domains="50.116.22.22:7056"
 
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 🚀 Starting miners for all addresses..."
 
